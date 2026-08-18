@@ -1,39 +1,30 @@
 using ApiEstudos.Models;
+using ApiEstudos.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiEstudos.Controllers;
+
 
 [ApiController]
 [Route("api/[controller]")]
 public class PedidoController : ControllerBase
 {
-    private static readonly List<Pedido> Pedidos = new()
+    private readonly PedidoService _pedidoService;
+    public PedidoController (PedidoService pedidoService)
     {
-        new Pedido
-        {
-            Id = 1,
-            Cliente = "Cliente 1",
-            Valor = 150.50m,
-            Status = "Pendente"
-        },
-        new Pedido
-        {
-            Id = 2,
-            Cliente = "Cliente 2",
-            Valor = 320.00m,
-            Status = "Enviado"
-        }
-    };
+        _pedidoService = pedidoService;
+    }
+
 
     [HttpGet]
     public IEnumerable <Pedido> Get()
     {
-        return Pedidos;
+        return _pedidoService.GetAll();
     }
     [HttpGet("{id}")]
     public ActionResult <Pedido> GetById(int id)
     {
-        var pedido = Pedidos.FirstOrDefault(p => p.Id == id);
+        var pedido = _pedidoService.GetById(id);
 
         if (pedido == null)
         {
@@ -45,39 +36,35 @@ public class PedidoController : ControllerBase
     [HttpPost]
     public ActionResult<Pedido> Post(Pedido pedido)
     {
-        pedido.Id = Pedidos.Max(p => p.Id) + 1;
+        var novoPedido = _pedidoService.Create(pedido);
 
-        Pedidos.Add(pedido);
-
-        return CreatedAtAction(nameof(GetById), new {id = pedido.Id}, pedido);
+        return CreatedAtAction(
+            nameof(GetById),
+            new {id = novoPedido.Id},
+            novoPedido
+        );
     }
     [HttpPut("{id}")]
     public ActionResult<Pedido> Put(int id, Pedido pedido)
     {
-        var pedidoExistente = Pedidos.FirstOrDefault(p => p.Id == id);
+        var pedidoAtualizado = _pedidoService.Update(id, pedido);
 
-        if (pedidoExistente == null)
+        if (pedidoAtualizado == null)
         {
             return NotFound();
         }
 
-        pedidoExistente.Cliente = pedido.Cliente;
-        pedidoExistente.Valor = pedido.Valor;
-        pedidoExistente.Status = pedido.Status;
-
-        return Ok(pedidoExistente);
+        return Ok(pedidoAtualizado);
     }
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        var pedido = Pedidos.FirstOrDefault(p => p.Id == id);
+        var removido = _pedidoService.Delete(id);
 
-        if (pedido == null)
+        if(!removido)
         {
             return NotFound();
         }
-
-        Pedidos.Remove(pedido);
 
         return NoContent();
     }
