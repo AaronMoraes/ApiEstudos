@@ -1,4 +1,4 @@
-using ApiEstudos.Repositories;
+using ApiEstudos.Interfaces;
 using ApiEstudos.Models;
 
 namespace ApiEstudos.Services;

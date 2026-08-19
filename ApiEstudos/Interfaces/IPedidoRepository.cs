@@ -1,7 +1,6 @@
-using System.Text;
 using ApiEstudos.Models;
 
-namespace ApiEstudos.Repositories;
+namespace ApiEstudos.Interfaces;
 
 public interface IPedidoRepository
 {
@@ -9,9 +8,9 @@ public interface IPedidoRepository
 
     Pedido? GetById(int id);
 
-    Pedido Create (Pedido pedido);
+    Pedido Create(Pedido pedido);
 
     Pedido? Update(int id, Pedido pedido);
 
-    bool Delete (int id);
+    bool Delete(int id);
 }

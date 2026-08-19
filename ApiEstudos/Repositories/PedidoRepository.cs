@@ -1,4 +1,6 @@
 using ApiEstudos.Models;
+using ApiEstudos.Interfaces;
+
 
 namespace ApiEstudos.Repositories;
 

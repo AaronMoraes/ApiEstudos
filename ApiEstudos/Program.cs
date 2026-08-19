@@ -1,5 +1,6 @@
 using ApiEstudos.Repositories;
 using ApiEstudos.Services;
+using ApiEstudos.Interfaces;
 
 
 var builder = WebApplication.CreateBuilder(args);
