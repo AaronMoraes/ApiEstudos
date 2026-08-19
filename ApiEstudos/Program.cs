@@ -1,10 +1,14 @@
+using ApiEstudos.Repositories;
 using ApiEstudos.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddScoped<PedidoRepository>();
 builder.Services.AddScoped<PedidoService>();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
