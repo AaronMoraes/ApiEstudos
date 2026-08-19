@@ -5,9 +5,9 @@ namespace ApiEstudos.Services;
 
 public class PedidoService
 {
-    private readonly PedidoRepository _pedidoRepository;
+    private readonly IPedidoRepository _pedidoRepository;
 
-    public PedidoService(PedidoRepository pedidoRepository)
+    public PedidoService(IPedidoRepository pedidoRepository)
     {
         _pedidoRepository = pedidoRepository;
     }

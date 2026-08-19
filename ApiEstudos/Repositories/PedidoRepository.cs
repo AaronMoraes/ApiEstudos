@@ -2,7 +2,7 @@ using ApiEstudos.Models;
 
 namespace ApiEstudos.Repositories;
 
-public class PedidoRepository
+public class PedidoRepository : IPedidoRepository
 {
     private static readonly List<Pedido> Pedidos = new()
     {
