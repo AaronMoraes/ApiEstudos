@@ -101,9 +101,9 @@ public class PedidoController : ControllerBase
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
-        var removido = _pedidoService.Delete(id);
+        var deleted = _pedidoService.Delete(id);
 
-        if(!removido)
+        if (!deleted)
         {
             return NotFound();
         }

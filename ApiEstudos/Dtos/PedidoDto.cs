@@ -11,6 +11,6 @@ public class PedidoDto
     public decimal Valor {get; set;}
 
     [Required]
-    [RegularExpression("^(Pendente|Enviado|Cancelado)$^")]
+    [RegularExpression("^(Pendente|Enviado|Cancelado)$")]
     public string Status {get; set;} = string.Empty;
 }
