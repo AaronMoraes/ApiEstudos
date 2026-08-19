@@ -1,9 +1,9 @@
-using ApiEstudos.Models;
 using ApiEstudos.Services;
+using ApiEstudos.Models;
 using ApiEstudos.Dtos;
+using ApiEstudos.Mappers;
 using Microsoft.AspNetCore.Mvc;
-using System.Data.Common;
-using System.Net;
+
 
 namespace ApiEstudos.Controllers;
 
@@ -34,15 +34,7 @@ public class PedidoController : ControllerBase
             return NotFound();
         }
 
-        var response = new PedidoResponseDto
-        {
-            Id = pedido.Id,
-            Cliente = pedido.Cliente,
-            Valor = pedido.Valor,
-            Status = pedido.Status
-        };
-
-        return response;
+        return PedidoMapper.ToResponseDto(pedido);
     }
     [HttpPost]
     public ActionResult<PedidoResponseDto> Post(PedidoDto pedidoDto)
@@ -56,13 +48,7 @@ public class PedidoController : ControllerBase
 
         var novoPedido = _pedidoService.Create(pedido);
 
-        var response = new PedidoResponseDto
-        {
-            Id = novoPedido.Id,
-            Cliente = novoPedido.Cliente,
-            Valor = novoPedido.Valor,
-            Status = novoPedido.Status
-        };
+        var response = PedidoMapper.ToResponseDto(novoPedido);
 
         return CreatedAtAction(
             nameof(GetById),
@@ -88,13 +74,8 @@ public class PedidoController : ControllerBase
             return NotFound();
         }
 
-        var response = new PedidoResponseDto
-        {
-            Id = pedidoAtualizado.Id,
-            Cliente = pedidoAtualizado.Cliente,
-            Valor = pedidoAtualizado.Valor,
-            Status = pedidoAtualizado.Status
-        };
+
+        var response = PedidoMapper.ToResponseDto(pedidoAtualizado);
 
         return response;
     }
